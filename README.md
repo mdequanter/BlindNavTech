@@ -16,10 +16,22 @@ collections-extended==2.0.2
 Processor: 	AMD Ryzen 5 PRO 6650U with Radeon Graphics 2.90 GHz
 RAM-memory: 	32,0 GB 
 
-I can confirm that it has a great performance, about 10.07 fps.
+Performance, about 10.07 fps.
 
 Tested on Raspberry Pi
 
+Deployed via :  https://docs.luxonis.com/hardware/platform/deploy/to-rpi/ (Using pre-configured RPi OS image)
+
+Python 3.11.2
+
+depthai==2.24.0.0
+depthai-sdk==1.9.4
+numpy==1.24.2
+opencv-contrib-python==4.11.0.86
+json5==0.9.14
+pyee==12.1.1
+
+Performance :  8.68 fps
 
 
 ## savefloor.py
