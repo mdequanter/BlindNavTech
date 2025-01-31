@@ -75,15 +75,17 @@ try:
         distance = round(distance, 2)  # Round to two decimal places
 
         print (distance)
-        
-        if 0 < distance < 300:  # 3 meters range
+
+        MIN_DISTANCE = 25     # cm (very close)
+        MAX_DISTANCE = 100    # cm (1 meters)
+        MIN_INTERVAL = 0.1    # seconds (fast clicking)
+        MAX_INTERVAL = 0.3    # seconds (slow clicking)
+
+
+        if MIN_DISTANCE < distance < MAX_DISTANCE:  
             # print(f"Distance: {distance - 0.5} cm")  # Calibration correction
             
             # Define the min and max distances for interpolation
-            MIN_DISTANCE = 20      # cm (very close)
-            MAX_DISTANCE = 100    # cm (1 meters)
-            MIN_INTERVAL = 0.1    # seconds (fast clicking)
-            MAX_INTERVAL = 0.3    # seconds (slow clicking)
 
             # Ensure the distance is within the defined range
             if distance < MIN_DISTANCE:
