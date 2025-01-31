@@ -5,32 +5,34 @@ Code and research for a master's thesis on advanced obstacle detection for the v
 
 # OAK-D Lite depth cam implementation
 
-Tested on :  Windows 10, no GPU,  Python 3.10.11,
+### Tested on :  Windows 10, no GPU,  Python 3.10.11,
+HP EliteBook 845 14 inch G9 with processor AMD Ryzen 5 PRO 6650U and  Radeon Graphics 2.90 GHz
 
+<pre>
 depthai==2.16.0.0
 numpy==1.26.4
 opencv-python==4.11.0.86
 json5==0.9.14
 collections-extended==2.0.2
+</pre>
 
-Processor: 	AMD Ryzen 5 PRO 6650U with Radeon Graphics 2.90 GHz
 RAM-memory: 	32,0 GB 
 
 Performance, about 10.07 fps.
 
-Tested on Raspberry Pi
+### Tested on Raspberry Pi 4 GB RAM (LPDDR4-3200)
 
 Deployed via :  https://docs.luxonis.com/hardware/platform/deploy/to-rpi/ (Using pre-configured RPi OS image)
 
 Python 3.11.2
-
+<pre>
 depthai==2.24.0.0
 depthai-sdk==1.9.4
 numpy==1.24.2
 opencv-contrib-python==4.11.0.86
 json5==0.9.14
 pyee==12.1.1
-
+</pre>
 Performance :  8.68 fps
 
 
