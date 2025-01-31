@@ -75,7 +75,7 @@ try:
         distance = round(distance, 2)  # Round to two decimal places
 
         if 0 < distance < 300:  # 3 meters range
-            print(f"Distance: {distance - 0.5} cm")  # Calibration correction
+            # print(f"Distance: {distance - 0.5} cm")  # Calibration correction
             
             # Generate different click speeds based on distance
             if distance < 50:  
@@ -87,10 +87,6 @@ try:
 
             generate_click(frequency=1000)  # Play sound
             time.sleep(click_interval)  # Control click speed
-
-        else:
-            print("Out of range")
-            time.sleep(0.5)  # Wait before next measurement
 
 except KeyboardInterrupt:
     print("\nMeasurement stopped by user")
