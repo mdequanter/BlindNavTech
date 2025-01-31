@@ -6,7 +6,7 @@ Code and research for a master's thesis on advanced obstacle detection for the v
 # OAK-D Lite depth cam implementation
 
 ### Tested on :  Windows 10, no GPU,  Python 3.10.11,
-HP EliteBook 845 14 inch G9 with processor AMD Ryzen 5 PRO 6650U and  Radeon Graphics 2.90 GHz
+HP EliteBook 845 14 inch G9 with processor AMD Ryzen 5 PRO 6650U and  Radeon Graphics 2.90 GHz (RAM-memory: 	32,0 GB )
 
 <pre>
 depthai==2.16.0.0
@@ -16,7 +16,7 @@ json5==0.9.14
 collections-extended==2.0.2
 </pre>
 
-RAM-memory: 	32,0 GB 
+
 
 Performance, about 10.07 fps.
 
