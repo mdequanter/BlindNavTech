@@ -80,8 +80,8 @@ try:
             # Define the min and max distances for interpolation
             MIN_DISTANCE = 0      # cm (very close)
             MAX_DISTANCE = 300    # cm (3 meters)
-            MIN_INTERVAL = 0.1    # seconds (fast clicking)
-            MAX_INTERVAL = 0.5    # seconds (slow clicking)
+            MIN_INTERVAL = 0.05    # seconds (fast clicking)
+            MAX_INTERVAL = 0.3    # seconds (slow clicking)
 
             # Ensure the distance is within the defined range
             if distance < MIN_DISTANCE:
