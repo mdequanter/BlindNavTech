@@ -74,6 +74,8 @@ try:
         distance = pulse_duration * 17150  # Convert time to distance in cm
         distance = round(distance, 2)  # Round to two decimal places
 
+        print (distance)
+        
         if 0 < distance < 300:  # 3 meters range
             # print(f"Distance: {distance - 0.5} cm")  # Calibration correction
             
