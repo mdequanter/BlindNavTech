@@ -64,7 +64,7 @@ try:
         else:
             print("Out Of Range")
 
-        time.sleep(1)  # Short delay before next measurement
+        time.sleep(0.2)  # Short delay before next measurement
 
 except KeyboardInterrupt:
     print("\nMeasurement stopped by user")
