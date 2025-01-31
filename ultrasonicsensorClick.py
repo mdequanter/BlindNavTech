@@ -77,15 +77,23 @@ try:
         if 0 < distance < 300:  # 3 meters range
             # print(f"Distance: {distance - 0.5} cm")  # Calibration correction
             
-            # Generate different click speeds based on distance
-            if distance < 50:  
-                click_interval = 0.1  # Very fast clicking
-            elif distance < 150:  
-                click_interval = 0.3  # Medium speed
-            else:  
-                click_interval = 0.6  # Slow clicking
+            # Define the min and max distances for interpolation
+            MIN_DISTANCE = 0      # cm (very close)
+            MAX_DISTANCE = 300    # cm (3 meters)
+            MIN_INTERVAL = 0.1    # seconds (fast clicking)
+            MAX_INTERVAL = 0.5    # seconds (slow clicking)
 
-            generate_click(frequency=1000)  # Play sound
+            # Ensure the distance is within the defined range
+            if distance < MIN_DISTANCE:
+                distance = MIN_DISTANCE
+            elif distance > MAX_DISTANCE:
+                distance = MAX_DISTANCE
+
+            # Linear interpolation formula
+            click_interval = MIN_INTERVAL + (MAX_INTERVAL - MIN_INTERVAL) * (distance - MIN_DISTANCE) / (MAX_DISTANCE - MIN_DISTANCE)
+
+            # Play sound with calculated interval
+            generate_click(frequency=1000)  # Play beep
             time.sleep(click_interval)  # Control click speed
 
 except KeyboardInterrupt:
