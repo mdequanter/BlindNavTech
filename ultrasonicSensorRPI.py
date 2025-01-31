@@ -21,7 +21,7 @@ try:
     while True:
         # Ensure TRIG is LOW before triggering
         GPIO.output(TRIG, False)
-        print("Waiting for sensor to settle...")
+        # print("Waiting for sensor to settle...")
         time.sleep(0.1)  # Shorter delay for JSN-SR04T
 
         # Send a 10-microsecond pulse
@@ -64,7 +64,7 @@ try:
         else:
             print("Out Of Range")
 
-        time.sleep(0.2)  # Short delay before next measurement
+        time.sleep(0.1)  # Short delay before next measurement
 
 except KeyboardInterrupt:
     print("\nMeasurement stopped by user")
