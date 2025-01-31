@@ -8,6 +8,7 @@ from collections import deque
 # Number of frames to average
 NUM_FRAMES = 5
 THRESHOLD = 1
+fps=0
 
 # Initialize a rolling buffer for depth frames
 depth_buffer = deque(maxlen=NUM_FRAMES)
