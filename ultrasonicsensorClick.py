@@ -74,7 +74,7 @@ try:
         distance = pulse_duration * 17150  # Convert time to distance in cm
         distance = round(distance, 2)  # Round to two decimal places
 
-        print (distance)
+        #print (distance)
 
         MIN_DISTANCE = 25     # cm (very close)
         MAX_DISTANCE = 100    # cm (1 meters)
