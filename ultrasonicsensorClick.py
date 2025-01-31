@@ -100,7 +100,7 @@ try:
 
             # Play sound with calculated interval
             generate_click(frequency=1000)  # Play beep
-            time.sleep(click_interval)  # Control click speed
+            #time.sleep(click_interval)  # Control click speed
 
 except KeyboardInterrupt:
     print("\nMeasurement stopped by user")
