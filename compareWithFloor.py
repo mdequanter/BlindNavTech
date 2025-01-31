@@ -6,7 +6,7 @@ from collections import deque
 
 # Number of frames to average
 
-NUM_FRAMES = 15
+NUM_FRAMES = 3
 THRESHOLD = 1
 
 # Initialize a rolling buffer for depth frames
