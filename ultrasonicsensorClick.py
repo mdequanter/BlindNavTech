@@ -26,7 +26,7 @@ stream = p.open(format=pyaudio.paInt16,
 
 print("Distance measurement with sound feedback (JSN-SR04T)")
 
-def generate_click(frequency=1000, duration=0.02):
+def generate_click(frequency=1000, duration=0.2):
     """Generate a short click sound"""
     sample_rate = 44100  # Sample rate in Hz
     samples = (np.sin(2 * np.pi * np.arange(sample_rate * duration) * frequency / sample_rate)).astype(np.float32)
@@ -83,7 +83,7 @@ try:
 
         if MIN_DISTANCE < distance < MAX_DISTANCE:  
             
-            print (distance)
+            #print (distance)
 
             # print(f"Distance: {distance - 0.5} cm")  # Calibration correction
             
