@@ -2,11 +2,13 @@ import depthai as dai
 import numpy as np
 import cv2
 import json
+import time
 from collections import deque
 
 # Number of frames to average
 NUM_FRAMES = 5
 THRESHOLD = 1
+fps = 30
 
 # Initialize a rolling buffer for depth frames
 depth_buffer = deque(maxlen=NUM_FRAMES)
@@ -69,6 +71,10 @@ with dai.Device(pipeline) as device:
         print("Geen opgeslagen dieptekaart gevonden.")
         saved_depth_map = None
 
+    # FPS meting
+    prev_time = time.time()
+    frame_count = 0
+
     while True:
         # Haal de huidige dieptekaart op
         inDepth = depthQueue.get()
@@ -77,16 +83,16 @@ with dai.Device(pipeline) as device:
         inVideo = videoQueue.get()
         frame = inVideo.getCvFrame()
         frame = cv2.resize(frame, (640, 400))
-        
+
         # Voeg de huidige dieptekaart toe aan de buffer
         depth_buffer.append(depth_map)
-        
+
         if len(depth_buffer) == NUM_FRAMES:
             # Bereken de gemiddelde dieptekaart over de opgeslagen frames
             avg_depth_map = np.max(depth_buffer, axis=0)
         else:
             continue  # Wacht tot de buffer vol is
-        
+
         if saved_depth_map is not None:
             # Bereken het verschil tussen de gemiddelde en opgeslagen dieptekaart
             diff_map = avg_depth_map - saved_depth_map
@@ -105,7 +111,6 @@ with dai.Device(pipeline) as device:
 
             # Definieer minimum oppervlak threshold
             min_area = 600  # Pas aan indien nodig
-            #output = frame.copy()
             output = np.zeros_like(color_map)
 
             # Teken enkel contouren met een groot genoeg oppervlak
@@ -130,7 +135,19 @@ with dai.Device(pipeline) as device:
 
             cv2.arrowedLine(output, start_point, end_point, (0, 255, 0), 3, tipLength=0.3)
 
-            # Toon de output met de pijl
+            # Bereken FPS
+            frame_count += 1
+            current_time = time.time()
+            elapsed_time = current_time - prev_time
+            if elapsed_time > 1.0:  # Update elke seconde
+                fps = frame_count / elapsed_time
+                frame_count = 0
+                prev_time = current_time
+
+            # Toon de FPS op het beeld
+            cv2.putText(output, f"FPS: {fps:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+
+            # Toon de output met de pijl en FPS
             cv2.imshow("Detections Contours & Navigation Arrow", output)
 
         if cv2.waitKey(1) == ord("q"):
