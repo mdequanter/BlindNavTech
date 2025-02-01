@@ -6,8 +6,6 @@
 #define SERVO_PIN 5  // Servo Pin
 
 Servo myServo; // Maak een servo object
-int vorigeWaarde = -1; // Houd de vorige servo-positie bij
-int nieuweWaarde = 90;
 void setup() {
     pinMode(TRIG_PIN, OUTPUT);
     pinMode(ECHO_PIN, INPUT);
