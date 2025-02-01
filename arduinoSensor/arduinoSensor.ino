@@ -30,35 +30,40 @@ void loop() {
     digitalWrite(TRIG_PIN, LOW);
 
     // Meet echo duur
-    duration = pulseIn(ECHO_PIN, HIGH);
+    duration = pulseIn(ECHO_PIN, HIGH,20000);
     distance = (duration * 0.0343) / 2;  // Omrekenen naar cm
     //Serial.println(distance);
+
+  if (distance <= 200 and distance > 100 ) {
+        myServo.write(90); // Beweeg de servo
+        delay(180);
+        myServo.write(100);
+        delay(180);
+        myServo.write(90);
+    }
+
     if (distance <= 100 and distance > 50 ) {
         myServo.write(90); // Beweeg de servo
         delay(150);
-        myServo.write(95);
+        myServo.write(100);
         delay(150);
         myServo.write(90);
     }
     if (distance <= 50 and distance > 30) {
         myServo.write(90); // Beweeg de servo
         delay(80);
-        myServo.write(95);
+        myServo.write(100);
         delay(80);
         myServo.write(90);
     }
 
-    if (distance <= 30 and distance >= 0) {
+    if (distance <= 30 and distance >= 10) {
         myServo.write(90); // Beweeg de servo
         delay(50);
-        myServo.write(95);
+        myServo.write(100);
         delay(50);
         myServo.write(90);
     }
-    // Buzzer laten klinken
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(10);  // Korte puls
-    digitalWrite(BUZZER_PIN, LOW);
-
+ 
     delay(10);  // Pas snelheid aan op basis van afstand
 }
