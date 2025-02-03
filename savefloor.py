@@ -72,13 +72,21 @@ with dai.Device(pipeline) as device:
         
         # Bereken gemiddelde per pixel
         avg_depth_map = np.mean(frame_buffer, axis=0)
-        
+        blurred_depth_map = cv2.GaussianBlur(avg_depth_map, (15, 15), 0)
+
         # Normaliseer de dieptekaart voor betere zichtbaarheid
         depth_display = cv2.normalize(avg_depth_map, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
         depth_display = cv2.applyColorMap(depth_display, cv2.COLORMAP_JET)  # Voeg kleur toe
 
+        # Normaliseer de dieptekaart voor betere zichtbaarheid
+        depth_display2 = cv2.normalize(blurred_depth_map, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+        depth_display2 = cv2.applyColorMap(depth_display2, cv2.COLORMAP_JET)  # Voeg kleur toe
+
+
         # Toon de dieptekaart met de overlays
         cv2.imshow("Depth Map", depth_display)
+        cv2.imshow("Depth Map2", depth_display2)
+
 
         # Toon de RGB-camera stream
         cv2.imshow("RGB Camera Stream", frame)
