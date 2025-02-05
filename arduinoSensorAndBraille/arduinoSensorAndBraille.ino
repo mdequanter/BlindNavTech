@@ -1,5 +1,8 @@
 #include <Servo.h>
 
+#define TRIG_PIN 2   // Ultrasone sensor Trigger Pin
+#define ECHO_PIN 3   // Ultrasone sensor Echo Pin
+
 const int SERVO_PIN = 6;
 int currentPos = 0;
 Servo servo;
@@ -7,9 +10,29 @@ int pulseWidth = 1500;
 int lastPulse = 1500;
 int delaySwitch = 500;
 int delayBasic = 500;
+bool objectAvoidance = false;
+
+
+int readDistance(){
+  long duration;
+  float distance;
+  // Stuur triggerpuls
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  // Meet echo duur
+  duration = pulseIn(ECHO_PIN, HIGH,20000);
+  distance = (duration * 0.0343) / 2;  // convert to cm
+  return distance;
+}
 
 
 void setup() {
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
   servo.attach(SERVO_PIN);
   currentPos = servo.readMicroseconds();
   Serial.begin(9600);
@@ -18,7 +41,47 @@ void setup() {
 }
 
 void loop() {
-  // Controleer of er seriële data beschikbaar is
+  float distance;
+
+  if (objectAvoidance == true) {
+    distance = readDistance();
+
+    Serial.println(distance);
+
+
+    if (distance <= 200 and distance > 10 ) {
+
+      if (distance <= 200 and distance > 100 ) {
+        delaySwitch = 180;
+        pulseWidth = 984; // 3
+      }
+      if (distance <= 100 and distance > 50 ) {
+        delaySwitch = 150;
+        pulseWidth = 2024; // 2
+      }
+      if (distance <= 50 and distance > 30 ) {
+        delaySwitch = 80;
+        pulseWidth = 1864; // 1
+      }
+      if (distance <= 30 and distance > 10 ) {
+        delaySwitch = 50;
+        pulseWidth = 1574; // 0
+      }
+
+
+      if (lastPulse == pulseWidth) {
+        servo.writeMicroseconds(pulseWidth-100);
+        delay(100);
+      }
+
+      servo.writeMicroseconds(pulseWidth);
+      delay(delaySwitch);
+      lastPulse = pulseWidth;
+
+    }
+  }
+
+
   if (Serial.available() > 0) {
     char c = Serial.read(); // Lees een karakter
     if (c != '\n' && c != '\r') {
@@ -74,8 +137,10 @@ void loop() {
         case 'O': // Obstackle 
           if (delaySwitch == 500 ) {
             delaySwitch = 100;
+            objectAvoidance = true;
           } else {
             delaySwitch = 500;
+            objectAvoidance = false;
           }
           pulseWidth = 1274;
         default:
