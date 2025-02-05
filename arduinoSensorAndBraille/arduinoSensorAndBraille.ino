@@ -8,24 +8,20 @@ int currentPos = 0;
 Servo servo;
 int pulseWidth = 1500;
 int lastPulse = 1500;
-int delaySwitch = 500;
+int delaySwitch = 100;
 int delayBasic = 500;
-bool objectAvoidance = false;
+bool objectAvoidance = true;
 
 
 int readDistance(){
-  long duration;
-  float distance;
-  // Stuur triggerpuls
-  digitalWrite(TRIG_PIN, LOW);
+  int distance;
+  digitalWrite(TRIG_PIN, LOW); // Set the trigger pin to low for 2uS
   delayMicroseconds(2);
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
-
-  // Meet echo duur
-  duration = pulseIn(ECHO_PIN, HIGH,20000);
-  distance = (duration * 0.0343) / 2;  // convert to cm
+  digitalWrite(TRIG_PIN, HIGH); // Send a 10uS high to trigger ranging
+  delayMicroseconds(20);
+  digitalWrite(TRIG_PIN, LOW); // Send pin low again
+  distance = pulseIn(ECHO_PIN, HIGH)/58; // Read in times pulse
+  //delay(50);// Wait 50mS before next ranging
   return distance;
 }
 
@@ -36,22 +32,20 @@ void setup() {
   servo.attach(SERVO_PIN);
   currentPos = servo.readMicroseconds();
   Serial.begin(9600);
-  Serial.println(currentPos);
+  Serial.println("Avoidance started");
   delay(2000); // Wacht op de seriële initialisatie
 }
 
 void loop() {
   float distance;
 
+
   if (objectAvoidance == true) {
     distance = readDistance();
-
-    Serial.println(distance);
-
-
-    if (distance <= 200 and distance > 10 ) {
-
-      if (distance <= 200 and distance > 100 ) {
+    if (distance <= 150 and distance > 10 ) {
+      Serial.println(distance);
+ 
+      if (distance <= 150 and distance > 100 ) {
         delaySwitch = 180;
         pulseWidth = 984; // 3
       }
