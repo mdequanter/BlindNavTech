@@ -152,7 +152,9 @@ with dai.Device(pipeline) as device:
                 fps = frame_count / elapsed_time
                 frame_count = 0
                 prev_time = current_time
-
+                        # Toon de FPS op het beeld
+            print (f"FPS: {fps:.2f}")
+            
             # Toon de output met de pijl en FPS
             # qcv2.imshow("Detections Contours & Navigation Arrow", output)
 
