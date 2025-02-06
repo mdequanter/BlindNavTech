@@ -120,23 +120,23 @@ with dai.Device(pipeline) as device:
                 cy = int(moments["m01"] / moments["m00"])  # Zwaartepunt y-coördinaat
             else:
                 cx, cy = depth_map.shape[1] // 2, depth_map.shape[0] // 2  # Midden als fallback
+            if (frame_count == 1 or frame_count == 16) :
+                if (cx < 300 ) :
+                    if (lastDirection != 'L'):
+                        print("ga links")
+                        lastDirection = 'L'
+                        ser.write(b'6')
+                if (cx > 340 ) :
+                    if (lastDirection != 'R'):
+                        print("ga rechts")
+                        lastDirection = 'R'
+                        ser.write(b'8')
 
-            if (cx < 300 ) :
-                if (lastDirection != 'L'):
-                    print("ga links")
-                    lastDirection = 'L'
-                    ser.write(b'6')
-            if (cx > 340 ) :
-                if (lastDirection != 'R'):
-                    print("ga rechts")
-                    lastDirection = 'R'
-                    ser.write(b'8')
-
-            if (cx >= 300 and cx <= 340) :
-                if (lastDirection != 'F'):
-                    print("ga rechtdoor")
-                    lastDirection = 'F'
-                    ser.write(b'7')
+                if (cx >= 300 and cx <= 340) :
+                    if (lastDirection != 'F'):
+                        print("ga rechtdoor")
+                        lastDirection = 'F'
+                        ser.write(b'7')
 
             # Pijl start van onderaan in het midden en wijst naar vrije zone
             start_point = (depth_map.shape[1] // 2, depth_map.shape[0] - 10)
@@ -154,7 +154,7 @@ with dai.Device(pipeline) as device:
                 prev_time = current_time
                         # Toon de FPS op het beeld
             print (f"FPS: {fps:.2f}")
-            
+
             # Toon de output met de pijl en FPS
             # qcv2.imshow("Detections Contours & Navigation Arrow", output)
 
