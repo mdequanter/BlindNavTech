@@ -1,6 +1,7 @@
+import cv2
 import depthai as dai
 import numpy as np
-import cv2
+
 
 # Instellen van de DepthAI pipeline
 pipeline = dai.Pipeline()

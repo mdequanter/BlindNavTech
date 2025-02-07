@@ -1,5 +1,5 @@
-import depthai as dai
 import cv2
+import depthai as dai
 
 # Instellen van de DepthAI pipeline
 pipeline = dai.Pipeline()

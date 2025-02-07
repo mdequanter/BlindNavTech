@@ -1,6 +1,6 @@
+import cv2
 import depthai as dai
 import numpy as np
-import cv2
 import json
 import time
 from collections import deque

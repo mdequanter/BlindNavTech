@@ -1,6 +1,6 @@
+import cv2
 import depthai as dai
 import numpy as np
-import cv2
 import json
 import time
 from collections import deque
@@ -9,7 +9,7 @@ import serial
 import time
 
 
-ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, timeout=1)
+ser = serial.Serial(port='COM5', baudrate=9600, timeout=1)
 time.sleep(2)
 
 # disable avoidqance with ultrasonic sensor
