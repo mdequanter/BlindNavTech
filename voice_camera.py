@@ -34,7 +34,7 @@ def handle_results(label, score):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('model_file', type=str)
+    parser.add_argument('model_file', type=str, help='Path to the TFLite model file')
     args = parser.parse_args()
     
     try:
