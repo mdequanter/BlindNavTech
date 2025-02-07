@@ -4,10 +4,11 @@ import os
 from aiymakerkit import audio
 import argparse
 
-PICTURE_DIR = os.path.join(os.path.expanduser('~'), 'Pictures')
-IMAGE_SIZE = (640, 480)
+PICTURE_DIR = 'Pictures'
+IMAGE_SIZE = (1280, 960)
 
 def capture_photo():
+    print ("take picture")
     cap = cv2.VideoCapture(0)  # Open default camera
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, IMAGE_SIZE[0])
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, IMAGE_SIZE[1])
@@ -17,6 +18,7 @@ def capture_photo():
         timestamp = datetime.now()
         filename = "VOICE_CAM_" + timestamp.strftime("%Y-%m-%d_%H%M%S") + '.png'
         filename = os.path.join(PICTURE_DIR, filename)
+        print (filename)
         cv2.imwrite(filename, frame)
         print('Saved', filename)
     else:
@@ -26,19 +28,16 @@ def capture_photo():
     cv2.destroyAllWindows()
 
 def handle_results(label, score):
-    if label == 'start':
+    if label == '2 start':
         return False
-    elif label == 'foto':
+    elif (label == '1 foto' and score > 0.7) :
         capture_photo()
     return True
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('model_file', type=str, help='Path to the TFLite model file')
-    args = parser.parse_args()
     
     try:
-        audio.classify_audio(model_file=args.model_file, callback=handle_results)
+        audio.classify_audio("models/soundclassifier_with_metadata.tflite", callback=handle_results)
     except Exception as e:
         print("Error:", e)
 
