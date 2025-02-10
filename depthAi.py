@@ -148,6 +148,10 @@ with dai.Device(pipeline) as device:
                     print(f"Invalid JSON: {data}")
 
         
+
+        # Coördinaten waar de afstand moet worden gemeten
+        x, y = scaled_x, scaled_y 
+
         # print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
         depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
 
