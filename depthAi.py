@@ -81,7 +81,7 @@ def get_min_depth_value(depth_map, x, y):
     nonzero_values = roi[roi > 0]
 
     # Return the minimum nonzero value or None if all values are zero
-    return np.min(nonzero_values) if nonzero_values.size > 0 else None
+    return np.min(nonzero_values) if nonzero_values.size > 0 else 0
 
 
 
