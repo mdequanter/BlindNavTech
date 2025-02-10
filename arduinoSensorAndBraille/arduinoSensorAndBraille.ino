@@ -157,8 +157,8 @@ void loop() {
       }
       
       if (lastPulse == pulseWidth) {
-        servo.writeMicroseconds(pulseWidth-100);
-        delay(100);
+        //servo.writeMicroseconds(pulseWidth-100);
+        //delay(100);
       }
       lastPulse = pulseWidth;
       /*
