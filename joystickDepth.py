@@ -70,6 +70,12 @@ xoutVideo = pipeline.create(dai.node.XLinkOut)
 xoutVideo.setStreamName("video")
 colorCam.video.link(xoutVideo.input)
 
+
+# Function to scale values
+def scale_value(value, source_min, source_max, target_min, target_max):
+    return int((target_max - target_min) / (source_max - source_min) * (value - source_min) + target_min)
+
+
 # Start het apparaat en de pipeline
 with dai.Device(pipeline) as device:
     depthQueue = device.getOutputQueue(name="depth", maxSize=1, blocking=False)
@@ -110,6 +116,23 @@ with dai.Device(pipeline) as device:
             # Read the available data
             data = ser.readline().decode('utf-8').strip()  # Read a line and decode
             print(f"Received: {data}")
+        
+            if data:  # Ensure data is not empty
+                try:
+                    parsed_data = json.loads(data)  # Parse JSON string
+                    x = parsed_data.get("X", 0)
+                    y = parsed_data.get("Y", 0)
+                    
+                    # Scale X and Y to 640x480
+                    scaled_x = scale_value(x, 0, 1023, 0, 639)
+                    scaled_y = scale_value(y, 0, 1023, 0, 479)
+                    
+                    print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
+                
+                except json.JSONDecodeError:
+                    print(f"Invalid JSON: {data}")
+
+
 
 
         if saved_depth_map is not None:

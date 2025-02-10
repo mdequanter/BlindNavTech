@@ -159,18 +159,21 @@ void loop() {
     }
   }
 
-    int xValue = analogRead(A0); // Read X-axis value
-    int yValue = analogRead(A1); // Read Y-axis value
-    int buttonState = digitalRead(9); // Read button state (0 = pressed, 1 = not pressed)
+    int buttonState = digitalRead(BUTTON_JOYSTICK); // Read button state (0 = pressed, 1 = not pressed)
+    if (buttonState == 0) {
+      int xValue = analogRead(A0); // Read X-axis value
+      int yValue = analogRead(A1); // Read Y-axis value
+      // Print JSON output
+      Serial.print("{\"X\":");
+      Serial.print(xValue);
+      Serial.print(",\"Y\":");
+      Serial.print(yValue);
+      Serial.print(",\"Button\":");
+      Serial.print(buttonState);
+      Serial.println("}");
+      delay(200);
+    }
 
 
-    // Print JSON output
-    Serial.print("{\"X\":");
-    Serial.print(xValue);
-    Serial.print(",\"Y\":");
-    Serial.print(yValue);
-    Serial.print(",\"Button\":");
-    Serial.print(buttonState);
-    Serial.println("}");
 
 }
