@@ -156,11 +156,12 @@ with dai.Device(pipeline) as device:
                     if (depth_value > 0) :
                         #depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
                         depthToServo = scale_value(depth_value, 0,5000, 0, 9)
+                        print (f"Depth to servo: {depthToServo}")
                         if (lastDepthServo!=depthToServo and depthToServo != 0) :
                             ser.write(depthToServo)
                             lastDepthServo = depthToServo
-                            #print(f"Depth at ({x}, {y}): {depth_value}")            # Maak een kleurenmap: Groen = gelijk, Rood = verder weg, Blauw = dichterbij
-                            #print (f"Depth to servo: {depthToServo}")
+                            #print(f"Depth at ({x}, {y}): {depth_value}")  
+                            print (f"Depth to servo: {depthToServo}")
                 except json.JSONDecodeError:
                     print(f"Invalid JSON: {data}")
 
