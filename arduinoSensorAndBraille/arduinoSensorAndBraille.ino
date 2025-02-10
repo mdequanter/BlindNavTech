@@ -160,7 +160,7 @@ void loop() {
   }
 
     int buttonState = digitalRead(BUTTON_JOYSTICK); // Read button state (0 = pressed, 1 = not pressed)
-    if (buttonState == 0) {
+    if (buttonState == 1) {
       int yValue = analogRead(A0); // Read X-axis value
       int xValue = analogRead(A1); // Read Y-axis value
       // Print JSON output

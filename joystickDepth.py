@@ -25,6 +25,8 @@ lastDirection = 'F'
 scaled_x = 320
 scaled_y = 240
 
+lastDepthServo = 0
+
 # Initialize a rolling buffer for depth frames
 depth_buffer = deque(maxlen=NUM_FRAMES)
 
@@ -134,7 +136,10 @@ with dai.Device(pipeline) as device:
                     print(f"Depth at ({x}, {y}): {depth_value}")            # Maak een kleurenmap: Groen = gelijk, Rood = verder weg, Blauw = dichterbij
                     depthToServo = scale_value(depth_value, 0,5000, 0, 9)
                     print (f"Depth to servo: {depthToServo}")
-                    ser.write(b'{depthToServo}')
+                    if (lastDepthServo!=depthToServo):
+                        ser.write(depthToServo)
+                        lastDepthServo = depthToServo
+
 
                 except json.JSONDecodeError:
                     print(f"Invalid JSON: {data}")
