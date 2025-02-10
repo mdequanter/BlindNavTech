@@ -67,6 +67,21 @@ lastDepthServo = 0
 def scale_value(value, source_min, source_max, target_min, target_max):
     return int((target_max - target_min) / (source_max - source_min) * (value - source_min) + target_min)
 
+def get_min_depth_value(depth_map, x, y):
+    # Define valid bounds while ensuring we stay within array limits
+    x_min = max(0, x - 10)
+    x_max = min(639, x + 10)
+    y_min = max(0, y - 10)
+    y_max = min(399, y + 10)
+
+    # Extract the region of interest (ROI)
+    roi = depth_map[y_min:y_max+1, x_min:x_max+1]
+
+    # Filter out zero values
+    nonzero_values = roi[roi > 0]
+
+    # Return the minimum nonzero value or None if all values are zero
+    return np.min(nonzero_values) if nonzero_values.size > 0 else None
 
 
 
@@ -136,8 +151,9 @@ with dai.Device(pipeline) as device:
                     scaled_x = scale_value(x, 0, 1023, 639, 0)
                     scaled_y = scale_value(y, 0, 1023, 0, 399)
                     
-                    # print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
-                    depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
+                    depth_value = get_min_depth_value(depth_map, scaled_x, scaled_y)
+
+                    #depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
                     depthToServo = scale_value(depth_value, 0,2000, 0, 9)
                     if (lastDepthServo!=depthToServo and depthToServo != 0) :
                         ser.write(depthToServo)
