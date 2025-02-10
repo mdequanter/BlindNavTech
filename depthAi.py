@@ -156,7 +156,7 @@ with dai.Device(pipeline) as device:
         depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
 
         # Teken een klein kadertje rond de gemeten positie
-        box_size = 5  # Grootte van het vierkant
+        box_size = 20  # Grootte van het vierkant
         cv2.rectangle(depth_display, (x - box_size, y - box_size), (x + box_size, y + box_size), (0, 255, 0), 2)
         cv2.rectangle(frame, (x - box_size, y - box_size), (x + box_size, y + box_size), (0, 255, 0), 2)
 
