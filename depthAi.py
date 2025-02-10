@@ -134,10 +134,10 @@ with dai.Device(pipeline) as device:
                     
                     # Scale X and Y to 640x480
                     scaled_x = scale_value(x, 0, 1023, 639, 0)
-                    scaled_y = scale_value(y, 0, 1023, 0, 479)
+                    scaled_y = scale_value(y, 0, 1023, 0, 399)
                     
                     # print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
-                    depth_value = depth_map[scaled_x, scaled_y]  # Remember: NumPy uses (row, column) -> (y, x)
+                    depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
                     depthToServo = scale_value(depth_value, 0,2000, 0, 9)
                     if (lastDepthServo!=depthToServo and depthToServo != 0) :
                         ser.write(depthToServo)
