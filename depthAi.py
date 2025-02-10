@@ -123,7 +123,7 @@ with dai.Device(pipeline) as device:
         if ser.in_waiting > 0:
             # Read the available data
             data = ser.readline().decode('utf-8').strip()  # Read a line and decode
-            # print(f"Received: {data}")
+            print(f"Received: {data}")
         
             if data:  # Ensure data is not empty
                 try:

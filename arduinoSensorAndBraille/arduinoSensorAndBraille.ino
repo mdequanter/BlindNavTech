@@ -142,7 +142,7 @@ void loop() {
           pulseWidth = 1274;
           break;
         case 'L': // Obstackle 
-          if (delaySwitch == 500 ) {
+          if (objectLocate == false ) {
             delaySwitch = 100;
             objectLocate = true;
           } else {
