@@ -173,16 +173,16 @@ with dai.Device(pipeline) as device:
 
         # Teken een klein kadertje rond de gemeten positie
         box_size = 20  # Grootte van het vierkant
-        cv2.rectangle(depth_display, (x - box_size, y - box_size), (x + box_size, y + box_size), (0, 255, 0), 2)
+        #cv2.rectangle(depth_display, (x - box_size, y - box_size), (x + box_size, y + box_size), (0, 255, 0), 2)
         cv2.rectangle(frame, (x - box_size, y - box_size), (x + box_size, y + box_size), (0, 255, 0), 2)
 
         # Voeg tekstoverlay toe met de meting
         label = f"{depth_value:.2f}"
-        cv2.putText(depth_display, label, (x + 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        #cv2.putText(depth_display, label, (x + 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
         cv2.putText(frame, label, (x + 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
         # Toon de dieptekaart met de overlays
-        cv2.imshow("Depth Map", depth_display)
+        # cv2.imshow("Depth Map", depth_display)
 
 
         # Toon de RGB-camera stream

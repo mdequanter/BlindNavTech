@@ -143,7 +143,7 @@ void loop() {
           break;
         case 'L': // Obstackle 
           if (objectLocate == false ) {
-            delaySwitch = 100;
+            delaySwitch = 10;
             objectLocate = true;
           } else {
             delaySwitch = 500;
@@ -183,7 +183,7 @@ void loop() {
       Serial.print(",\"Button\":");
       Serial.print(buttonState);
       Serial.println("}");
-      delay(200);
+      delay(100);
     }
 
 
