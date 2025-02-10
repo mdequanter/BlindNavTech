@@ -183,7 +183,7 @@ void loop() {
       Serial.print(",\"Button\":");
       Serial.print(buttonState);
       Serial.println("}");
-      delay(100);
+      delay(200);
     }
 
 
