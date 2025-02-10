@@ -206,8 +206,6 @@ with dai.Device(pipeline) as device:
                 prev_time = current_time
 
             cv2.circle(output, (scaled_x, scaled_y), 10, (255, 100, 100), -1)
-            measuredSpot = depth_map[scaled_x, scaled_y]
-            print (f"Measured spot: {measuredSpot}")           
             # Toon de FPS op het beeld
             cv2.putText(output, f"FPS: {fps:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
