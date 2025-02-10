@@ -130,7 +130,8 @@ with dai.Device(pipeline) as device:
                     scaled_y = scale_value(y, 0, 1023, 0, 479)
                     
                     # print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
-                
+                    depth_value = depth_map[y, x]  # Remember: NumPy uses (row, column) -> (y, x)
+                    print(f"Depth at ({x}, {y}): {depth_value}")            # Maak een kleurenmap: Groen = gelijk, Rood = verder weg, Blauw = dichterbij
                 except json.JSONDecodeError:
                     print(f"Invalid JSON: {data}")
 
@@ -142,8 +143,6 @@ with dai.Device(pipeline) as device:
             diff_map = avg_depth_map - saved_depth_map
             diff_map[np.abs(diff_map) < THRESHOLD] = 0
 
-            print (f"depth_map: {depth_map}")
-            # Maak een kleurenmap: Groen = gelijk, Rood = verder weg, Blauw = dichterbij
             color_map = np.zeros((*diff_map.shape, 3), dtype=np.uint8)
             color_map[..., 2] = np.clip(-diff_map * 2, 0, 255).astype(np.uint8)  # Blauw voor dichterbij
             color_map[..., 1] = np.clip(diff_map * 2, 0, 255).astype(np.uint8)  # Rood voor verder weg
