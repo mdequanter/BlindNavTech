@@ -55,6 +55,9 @@ colorCam.video.link(xoutVideo.input)
 ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, timeout=1)
 # disable avoidqance with ultrasonic sensor
 ser.write(b'O')
+time.sleep(1)
+ser.write(b'L')
+time.sleep(1)
 scaled_x = 320
 scaled_y = 240
 lastDepthServo = 0

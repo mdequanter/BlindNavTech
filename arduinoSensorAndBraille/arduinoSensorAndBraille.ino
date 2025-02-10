@@ -11,6 +11,7 @@ int lastPulse = 1500;
 int delaySwitch = 100;
 int delayBasic = 500;
 bool objectAvoidance = true;
+bool objectLocate = false;
 
 
 int readDistance(){
@@ -122,11 +123,11 @@ void loop() {
         case '-':
           pulseWidth = 1684;
           break;
-        case 'L':
+        case 'M':
           currentPos = servo.readMicroseconds();
           pulseWidth = currentPos + 10;
           break;
-        case 'R':
+        case 'P':
           currentPos = servo.readMicroseconds();
           pulseWidth = currentPos - 10;
           break;
@@ -139,6 +140,17 @@ void loop() {
             objectAvoidance = false;
           }
           pulseWidth = 1274;
+          break;
+        case 'L': // Obstackle 
+          if (delaySwitch == 500 ) {
+            delaySwitch = 100;
+            objectLocate = true;
+          } else {
+            delaySwitch = 500;
+            objectLocate = false;
+          }
+          pulseWidth = 1274;
+          break;
         default:
           pulseWidth = 1500; // Neutrale positie
           break;
@@ -160,7 +172,7 @@ void loop() {
   }
 
     int buttonState = digitalRead(BUTTON_JOYSTICK); // Read button state (0 = pressed, 1 = not pressed)
-    if (buttonState == 0) {
+    if (objectLocate == true) {
       int yValue = analogRead(A0); // Read X-axis value
       int xValue = analogRead(A1); // Read Y-axis value
       // Print JSON output
@@ -168,6 +180,8 @@ void loop() {
       Serial.print(xValue);
       Serial.print(",\"Y\":");
       Serial.print(yValue);
+      Serial.print(",\"Button\":");
+      Serial.print(buttonState);
       Serial.println("}");
       delay(200);
     }
