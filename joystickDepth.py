@@ -129,7 +129,7 @@ with dai.Device(pipeline) as device:
                     scaled_x = scale_value(x, 0, 1023, 639, 0)
                     scaled_y = scale_value(y, 0, 1023, 0, 479)
                     
-                    print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
+                    # print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
                 
                 except json.JSONDecodeError:
                     print(f"Invalid JSON: {data}")
@@ -206,7 +206,8 @@ with dai.Device(pipeline) as device:
                 prev_time = current_time
 
             cv2.circle(output, (scaled_x, scaled_y), 10, (255, 100, 100), -1)
-            print (scaled_x, scaled_y)           
+            measuredSpot = depth_map[scaled_x, scaled_y]
+            print (f"Measured spot: {measuredSpot}")           
             # Toon de FPS op het beeld
             cv2.putText(output, f"FPS: {fps:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
