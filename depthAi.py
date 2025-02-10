@@ -158,13 +158,19 @@ with dai.Device(pipeline) as device:
                         depthToServo = scale_value(depth_value, 0,5000, 0, 9)
                         if (depthToServo > 9) : 
                             depthToServo = 9
-                        if (lastDepthServo != depthToServo and depthToServo > 0 and depthToServo < 4) :
+                        if (lastDepthServo != depthToServo and depthToServo > 0 and depthToServo < 7) :
                             if (depthToServo == 1) :
                                 ser.write(b'1')
                             if (depthToServo == 2) :
                                 ser.write(b'2')
                             if (depthToServo == 3) :
                                 ser.write(b'3')
+                            if (depthToServo == 4) :
+                                ser.write(b'4')
+                            if (depthToServo == 5) :
+                                ser.write(b'5')
+                            if (depthToServo == 6) :
+                                ser.write(b'6')
 
                             lastDepthServo = depthToServo
                             #print(f"Depth at ({x}, {y}): {depth_value}")  
