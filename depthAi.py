@@ -62,6 +62,7 @@ time.sleep(1)
 scaled_x = 320
 scaled_y = 240
 lastDepthServo = 99
+depthToServo = 0
 
 # Function to scale values
 def scale_value(value, source_min, source_max, target_min, target_max):
