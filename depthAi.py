@@ -158,7 +158,7 @@ with dai.Device(pipeline) as device:
                         depthToServo = scale_value(depth_value, 0,5000, 0, 9)
                         print (f"Depth to servo: {depthToServo}")
                         if (lastDepthServo!=depthToServo and depthToServo != 0) :
-                            ser.write(depthToServo)
+                            ser.write(b'{depthToServo}')
                             lastDepthServo = depthToServo
                             #print(f"Depth at ({x}, {y}): {depth_value}")  
                             print (f"Depth to servo: {depthToServo}")
