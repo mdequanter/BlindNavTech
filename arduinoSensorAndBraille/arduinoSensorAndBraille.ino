@@ -45,24 +45,20 @@ void loop() {
 
   if (objectAvoidance == true) {
     distance = readDistance();
-    if (distance <= 150 and distance > 10 ) {
+    if (distance <= 100 and distance > 10 ) {
       //Serial.println(distance);
  
-      if (distance <= 150 and distance > 100 ) {
-        delaySwitch = 180;
-        pulseWidth = 984; // 3
-      }
       if (distance <= 100 and distance > 50 ) {
-        delaySwitch = 150;
-        pulseWidth = 2024; // 2
+        delaySwitch = int(distance)*2;
+        pulseWidth = 1274; // 2
       }
       if (distance <= 50 and distance > 30 ) {
-        delaySwitch = 80;
-        pulseWidth = 1864; // 1
+        delaySwitch = int(distance)*2;
+        pulseWidth = 1274; // 1
       }
       if (distance <= 30 and distance > 10 ) {
-        delaySwitch = 50;
-        pulseWidth = 1574; // 0
+        delaySwitch = int(distance)*2;
+        pulseWidth = 1274; // 0
       }
 
 
