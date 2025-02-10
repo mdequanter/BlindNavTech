@@ -151,7 +151,13 @@ with dai.Device(pipeline) as device:
 
         # Coördinaten waar de afstand moet worden gemeten
         x, y = scaled_x, scaled_y 
-        yDistance, aValue, status = detect_object_simple(x, y, depth_map)
+
+        # Scale X and Y to 640x480
+        scaled_x = scale_value(x, 0, 1023, 639, 0)
+        scaled_y = scale_value(y, 0, 1023, 0, 479)
+        
+        # print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
+        depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
 
         # Teken een klein kadertje rond de gemeten positie
         box_size = 5  # Grootte van het vierkant
@@ -159,7 +165,7 @@ with dai.Device(pipeline) as device:
         cv2.rectangle(frame, (x - box_size, y - box_size), (x + box_size, y + box_size), (0, 255, 0), 2)
 
         # Voeg tekstoverlay toe met de meting
-        label = f"{yDistance:.2f}"
+        label = f"{depth_value:.2f}"
         cv2.putText(depth_display, label, (x + 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
         cv2.putText(frame, label, (x + 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
