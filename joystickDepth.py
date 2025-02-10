@@ -117,7 +117,7 @@ with dai.Device(pipeline) as device:
         if ser.in_waiting > 0:
             # Read the available data
             data = ser.readline().decode('utf-8').strip()  # Read a line and decode
-            print(f"Received: {data}")
+            # print(f"Received: {data}")
         
             if data:  # Ensure data is not empty
                 try:
@@ -142,6 +142,7 @@ with dai.Device(pipeline) as device:
             diff_map = avg_depth_map - saved_depth_map
             diff_map[np.abs(diff_map) < THRESHOLD] = 0
 
+            print (f"depth_map: {depth_map}")
             # Maak een kleurenmap: Groen = gelijk, Rood = verder weg, Blauw = dichterbij
             color_map = np.zeros((*diff_map.shape, 3), dtype=np.uint8)
             color_map[..., 2] = np.clip(-diff_map * 2, 0, 255).astype(np.uint8)  # Blauw voor dichterbij
