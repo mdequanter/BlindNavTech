@@ -161,6 +161,7 @@ with dai.Device(pipeline) as device:
                             lastDepthServo = depthToServo
                             #print(f"Depth at ({x}, {y}): {depth_value}")  
                             print (f"Depth to servo: {depthToServo}")
+                            time.sleep(0.5)
                 except json.JSONDecodeError:
                     print(f"Invalid JSON: {data}")
 
