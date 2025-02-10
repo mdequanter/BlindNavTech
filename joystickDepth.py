@@ -126,8 +126,8 @@ with dai.Device(pipeline) as device:
                     y = parsed_data.get("Y", 0)
                     
                     # Scale X and Y to 640x480
-                    scaled_x = scale_value(x, 0, 1023, 0, 639)
-                    scaled_y = scale_value(y, 0, 1023, 479, 0)
+                    scaled_x = scale_value(x, 0, 1023, 639, 0)
+                    scaled_y = scale_value(y, 0, 1023, 0, 479)
                     
                     print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
                 
