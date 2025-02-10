@@ -107,9 +107,9 @@ with dai.Device(pipeline) as device:
                 frame = inDepth.getFrame()
                 print("Received Depth Frame:", frame.shape)
 
-            except RuntimeError as e:
-                print(f"⚠️ Warning: {e} (Skipping frame)")
-                time.sleep(0.1)  # Small delay to avoid excessive errors
+        except RuntimeError as e:
+            print(f"⚠️ Warning: {e} (Skipping frame)")
+            time.sleep(0.1)  # Small delay to avoid excessive errors
 
 
         depth_map = inDepth.getFrame().astype(np.float32)
