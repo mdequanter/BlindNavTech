@@ -157,7 +157,7 @@ with dai.Device(pipeline) as device:
                         #depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
                         depthToServo = scale_value(depth_value, 0,5000, 0, 9)
                         print (f"Depth to servo: {depthToServo}")
-                        if (lastDepthServo!=depthToServo and depthToServo != 0) :
+                        if (lastDepthServo != depthToServo and depthToServo > 0) :
                             ser.write(f'{{{depthToServo}}}'.encode())
                             lastDepthServo = depthToServo
                             #print(f"Depth at ({x}, {y}): {depth_value}")  
