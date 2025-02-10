@@ -9,7 +9,9 @@ import serial
 import time
 
 
-ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, timeout=1)
+#ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, timeout=1)
+ser = serial.Serial(port='COM4', baudrate=9600, timeout=1)
+
 time.sleep(2)
 
 # disable avoidqance with ultrasonic sensor
@@ -41,11 +43,11 @@ stereo = pipeline.create(dai.node.StereoDepth)
 # Stel de camera resolutie en frames in
 monoLeft.setResolution(dai.MonoCameraProperties.SensorResolution.THE_400_P)
 monoRight.setResolution(dai.MonoCameraProperties.SensorResolution.THE_400_P)
-monoLeft.setBoardSocket(dai.CameraBoardSocket.LEFT)
-monoRight.setBoardSocket(dai.CameraBoardSocket.RIGHT)
+#monoLeft.setBoardSocket(dai.CameraBoardSocket.LEFT)
+#monoRight.setBoardSocket(dai.CameraBoardSocket.RIGHT)
 
 # Configuratie van stereo diepte
-stereo.setDefaultProfilePreset(dai.node.StereoDepth.PresetMode.HIGH_ACCURACY)
+# stereo.setDefaultProfilePreset(dai.node.StereoDepth.PresetMode.HIGH_ACCURACY)
 stereo.setLeftRightCheck(True)
 stereo.setExtendedDisparity(False)
 stereo.setSubpixel(False)
@@ -61,7 +63,7 @@ stereo.depth.link(xoutDepth.input)
 
 # Creëer de RGB camera
 colorCam = pipeline.create(dai.node.ColorCamera)
-colorCam.setBoardSocket(dai.CameraBoardSocket.RGB)
+# colorCam.setBoardSocket(dai.CameraBoardSocket.RGB)
 colorCam.setResolution(dai.ColorCameraProperties.SensorResolution.THE_1080_P)
 colorCam.setFps(30)
 

@@ -2,6 +2,10 @@ import cv2
 import depthai as dai
 import numpy as np
 
+import serial
+import time
+import json
+
 
 # Instellen van de DepthAI pipeline
 pipeline = dai.Pipeline()
@@ -46,6 +50,20 @@ stereo.depth.link(xoutDepth.input)
 xoutVideo = pipeline.create(dai.node.XLinkOut)
 xoutVideo.setStreamName("video")
 colorCam.video.link(xoutVideo.input)
+
+
+ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, timeout=1)
+# disable avoidqance with ultrasonic sensor
+ser.write(b'O')
+scaled_x = 320
+scaled_y = 240
+lastDepthServo = 0
+
+# Function to scale values
+def scale_value(value, source_min, source_max, target_min, target_max):
+    return int((target_max - target_min) / (source_max - source_min) * (value - source_min) + target_min)
+
+
 
 
 # Start het apparaat en de pipeline
@@ -99,10 +117,38 @@ with dai.Device(pipeline) as device:
         depth_display = cv2.normalize(depth_map, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
         depth_display = cv2.applyColorMap(depth_display, cv2.COLORMAP_JET)  # Voeg kleur toe
 
+        if ser.in_waiting > 0:
+            # Read the available data
+            data = ser.readline().decode('utf-8').strip()  # Read a line and decode
+            # print(f"Received: {data}")
+        
+            if data:  # Ensure data is not empty
+                try:
+                    parsed_data = json.loads(data)  # Parse JSON string
+                    x = parsed_data.get("X", 0)
+                    y = parsed_data.get("Y", 0)
+                    
+                    # Scale X and Y to 640x480
+                    scaled_x = scale_value(x, 0, 1023, 639, 0)
+                    scaled_y = scale_value(y, 0, 1023, 0, 479)
+                    
+                    # print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
+                    depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
+                    depthToServo = scale_value(depth_value, 0,2000, 0, 9)
+                    if (lastDepthServo!=depthToServo and depthToServo != 0) :
+                        ser.write(b'{depthToServo}')
+                        lastDepthServo = depthToServo
+                        print(f"Depth at ({x}, {y}): {depth_value}")            # Maak een kleurenmap: Groen = gelijk, Rood = verder weg, Blauw = dichterbij
+                        print (f"Depth to servo: {depthToServo}")
+    
+
+                except json.JSONDecodeError:
+                    print(f"Invalid JSON: {data}")
+
         
 
         # Coördinaten waar de afstand moet worden gemeten
-        x, y = 320, 380 
+        x, y = scaled_x, scaled_y 
         yDistance, aValue, status = detect_object_simple(x, y, depth_map)
 
         # Teken een klein kadertje rond de gemeten positie
