@@ -130,7 +130,7 @@ with dai.Device(pipeline) as device:
                     scaled_y = scale_value(y, 0, 1023, 0, 479)
                     
                     # print(f"Original: ({x}, {y}) -> Scaled: ({scaled_x}, {scaled_y})")
-                    depth_value = depth_map[scaled_x, scaled_y]  # Remember: NumPy uses (row, column) -> (y, x)
+                    depth_value = depth_map[scaled_y, scaled_x]  # Remember: NumPy uses (row, column) -> (y, x)
                     print(f"Depth at ({x}, {y}): {depth_value}")            # Maak een kleurenmap: Groen = gelijk, Rood = verder weg, Blauw = dichterbij
                 except json.JSONDecodeError:
                     print(f"Invalid JSON: {data}")
