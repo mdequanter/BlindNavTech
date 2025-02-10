@@ -159,7 +159,13 @@ with dai.Device(pipeline) as device:
                         if (depthToServo > 9) : 
                             depthToServo = 9
                         if (lastDepthServo != depthToServo and depthToServo > 0 and depthToServo < 4) :
-                            ser.write(f'{{{depthToServo}}}'.encode())
+                            if (depthToServo == 1) :
+                                ser.write(b'1')
+                            if (depthToServo == 2) :
+                                ser.write(b'2')
+                            if (depthToServo == 3) :
+                                ser.write(b'3')
+
                             lastDepthServo = depthToServo
                             #print(f"Depth at ({x}, {y}): {depth_value}")  
                             print (f"Depth to servo: {depthToServo}")
