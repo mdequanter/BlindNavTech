@@ -2,7 +2,7 @@
 
 #define TRIG_PIN 2   // Ultrasone sensor Trigger Pin
 #define ECHO_PIN 3   // Ultrasone sensor Echo Pin
-
+#define BUTTON_JOYSTICK 9
 const int SERVO_PIN = 6;
 int currentPos = 0;
 Servo servo;
@@ -29,6 +29,8 @@ int readDistance(){
 void setup() {
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
+  pinMode(BUTTON_JOYSTICK, INPUT_PULLUP); // Set pin 8 as input with internal pull-up resistor
+
   servo.attach(SERVO_PIN);
   currentPos = servo.readMicroseconds();
   Serial.begin(9600);
@@ -43,7 +45,7 @@ void loop() {
   if (objectAvoidance == true) {
     distance = readDistance();
     if (distance <= 150 and distance > 10 ) {
-      Serial.println(distance);
+      //Serial.println(distance);
  
       if (distance <= 150 and distance > 100 ) {
         delaySwitch = 180;
@@ -146,7 +148,6 @@ void loop() {
         servo.writeMicroseconds(pulseWidth-100);
         delay(100);
       }
-      
       lastPulse = pulseWidth;
       /*
       Serial.print(pulseWidth);
@@ -157,4 +158,19 @@ void loop() {
       delay(delaySwitch);
     }
   }
+
+    int xValue = analogRead(A0); // Read X-axis value
+    int yValue = analogRead(A1); // Read Y-axis value
+    int buttonState = digitalRead(9); // Read button state (0 = pressed, 1 = not pressed)
+
+
+    // Print JSON output
+    Serial.print("{\"X\":");
+    Serial.print(xValue);
+    Serial.print(",\"Y\":");
+    Serial.print(yValue);
+    Serial.print(",\"Button\":");
+    Serial.print(buttonState);
+    Serial.println("}");
+
 }

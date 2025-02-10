@@ -106,6 +106,12 @@ with dai.Device(pipeline) as device:
         else:
             continue  # Wacht tot de buffer vol is
 
+        if ser.in_waiting > 0:
+            # Read the available data
+            data = ser.readline().decode('utf-8').strip()  # Read a line and decode
+            print(f"Received: {data}")
+
+
         if saved_depth_map is not None:
             # Bereken het verschil tussen de gemiddelde en opgeslagen dieptekaart
             diff_map = avg_depth_map - saved_depth_map
