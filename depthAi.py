@@ -52,7 +52,7 @@ xoutVideo.setStreamName("video")
 colorCam.video.link(xoutVideo.input)
 
 
-ser = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, timeout=1)
+ser = serial.Serial(port='COM3', baudrate=9600, timeout=1)
 time.sleep(2)
 # disable avoidqance with ultrasonic sensor
 ser.write(b'O')
