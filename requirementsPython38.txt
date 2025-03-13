@@ -1,0 +1,6 @@
+onnx==1.16.2
+onnx-tf==1.10.0
+numpy==1.23.5
+tensorflow==2.10.0
+tensorflow-addons==0.21.0
+tensorflow-probability==0.13.0

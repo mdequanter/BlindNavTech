@@ -3,7 +3,7 @@ import supervision as sv
 import cv2
 
 # Open de camera (0 voor de standaard camera, wijzig indien nodig)
-capture = cv2.VideoCapture(1)
+capture = cv2.VideoCapture(0)
 
 # Controleer of de camera correct is geopend
 if not capture.isOpened():

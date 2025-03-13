@@ -8,7 +8,7 @@ project = rf.workspace().project("personalobjects")
 model = project.version(1).model
 
 # Open webcam (0 = default webcam, change to 1 or 2 if using external webcams)
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # Set frame dimensions (adjust for performance)
 cap.set(3, 640)  # Width
