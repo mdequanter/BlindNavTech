@@ -34,7 +34,7 @@ def label_to_color_image(label):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', required=True, help='Path of the segmentation model.')
+    parser.add_argument('--model', required=False, default="test_data\deeplabv3_mnv2_pascal_quant_edgetpu.tflite" , help='Path of the segmentation model.')
     parser.add_argument('--fps', type=int, default=10, help='Desired processing framerate (frames per second).')
     args = parser.parse_args()
     

@@ -56,7 +56,7 @@ def compute_iou(bbox1, bbox2):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', required=True, help='Path naar SSD model.')
+    parser.add_argument('--model', required=False,default="test_data\ssd_mobilenet_v2_coco_quant_no_nms_edgetpu.tflite",help='Path naar SSD model.')
     parser.add_argument('--label', help='Path naar labels file.')
     parser.add_argument('--score_threshold', type=float, default=0.5, help='Minimale score voor detectie.')
     args = parser.parse_args()
