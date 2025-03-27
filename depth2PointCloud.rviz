@@ -1,0 +1,18 @@
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/PointCloud2
+      Name: PointCloud
+      Enabled: true
+      Topic: /points
+      Queue Size: 10
+      Color Transformer: Intensity
+      Size (m): 0.03
+      Alpha: 1.0
+  Enabled: true
+  Global Options:
+    Fixed Frame: oakd_frame
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/Measure
