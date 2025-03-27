@@ -1,3 +1,11 @@
+''''
+Uses the Oak D lite for transferring 3D depth to /scan topic
+
+Launch rviz wit following command :  rviz2 -d dept2scan.rviz
+'''
+
+
+
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan

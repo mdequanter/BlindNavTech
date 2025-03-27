@@ -1,0 +1,26 @@
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/LaserScan
+      Name: LaserScan
+      Enabled: true
+      Topic: /scan
+      Queue Size: 10
+      Color: 255; 255; 255
+      Style: Points
+      Size (m): 0.03
+      Alpha: 1.0
+      Decay Time: 0
+      Position Transformer: XYZ
+      Angle Transformer: FlatColor
+      Use Fixed Frame: true
+  Enabled: true
+  Global Options:
+    Fixed Frame: oakd_frame
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+  Value: true
