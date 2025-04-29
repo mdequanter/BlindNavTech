@@ -6,7 +6,7 @@ from ultralytics import YOLO
 
 # Load YOLOv8 model
 
-model = YOLO("segPersonalObjects.pt")
+model = YOLO("models\pathfinderYolo8Seg.pt")
 
 # Export to ONNX format
 
