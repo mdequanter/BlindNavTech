@@ -5,10 +5,10 @@ import time  # <-- Nieuw toegevoegd
 from ultralytics import YOLO
 
 # --- Model laden ---
-model = YOLO('models\\pathfinderYolo8Seg.pt', verbose=True)
+model = YOLO('models//pathfinderYolo8Seg.pt', verbose=True)
 
 # --- Videobestand openen ---
-video_path = r'videos\\G0110729.MP4'
+video_path = r'videos//G0110729.MP4'
 cap = cv2.VideoCapture(video_path)
 cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
