@@ -12,7 +12,7 @@ personalGPUInference = "http://192.168.0.55:9001"
 
 # Roboflow inference setup
 client = InferenceHTTPClient(
-    api_url="https://detect.roboflow.com",
+    api_url=localInference,
     api_key="WgLYEMfa0WjwZWHJhwlO"
 )
 
