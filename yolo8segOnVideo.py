@@ -5,7 +5,7 @@ import time  # <-- Nieuw toegevoegd
 from ultralytics import YOLO
 
 # --- Model laden ---
-model = YOLO('models//pathfinderYolo8Seg.pt', verbose=True)
+model = YOLO('models//botopiacam.pt', verbose=True)
 
 # --- Videobestand openen ---
 video_path = r'videos\botopiaCitycam.mp4'
@@ -44,7 +44,17 @@ while True:
         print("Frame niet beschikbaar, probeer volgende frame")
         continue
 
+    # --- Start tijd voor inferentie ---
+    start_time = time.time()
+
+    # Voer objectdetectie uit
     results = model(frame, conf=0.8, verbose=False)
+
+    # --- Eind tijd voor inferentie ---
+    end_time = time.time()
+
+    # Bereken de inferentie tijd
+    inference_time = end_time - start_time
 
     overlay = frame.copy()
     for result in results:
@@ -62,9 +72,15 @@ while True:
     fps_text = 1 / (current_time - prev_time)
     prev_time = current_time
 
+    # --- Toon FPS en Inference Time op het frame ---
     cv2.putText(frame, f"FPS: {fps_text:.2f}", (10, 30),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)  # <-- Nieuw toegevoegd
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)  # FPS tekst
 
+    inference_time_text = f"Inference Time: {inference_time * 1000:.2f} ms"  # Convert to milliseconds
+    cv2.putText(frame, inference_time_text, (10, 70),
+                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)  # Inference time tekst
+
+    # Toon het frame met FPS en Inference Time
     cv2.imshow("YOLOv8 Segmentatie", frame)
     out.write(frame)  # Frame wegschrijven naar outputbestand
 
