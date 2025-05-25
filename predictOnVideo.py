@@ -3,8 +3,8 @@ import supervision as sv
 import cv2
 
 # Open de video in plaats van de camera
-video_path = "paris.mp4"
-output_path = "paris_result.mp4"
+video_path = "videos/botopiaCitycam.mp4"
+output_path = "videos/botopiaCitycam.mp4_result.mp4"
 capture = cv2.VideoCapture(video_path)
 
 # Controleer of de video correct is geopend
@@ -22,7 +22,7 @@ fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
 
 # Laad een pre-trained YOLOv8n model
-model = get_model(model_id="personalobjects/1")
+model = get_model(model_id="botopiarobotcam/1")
 
 # Maak supervision annotators
 mask_annotator = sv.MaskAnnotator(color=sv.Color.GREEN)  # Set the mask color to Green
